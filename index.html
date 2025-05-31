@@ -43,6 +43,11 @@
       background: #ffe5e5;
     }
 
+    .seed-grid input.valid {
+      border-color: rgb(71, 223, 124);
+      background: #ffe5e5;
+    }
+
     button {
       margin-top: 25px;
       padding: 12px 30px;
@@ -95,6 +100,7 @@
         e.target.classList.add("invalid");
       } else {
         e.target.classList.remove("invalid");
+        e.target.classList.add("valid");
       }
     }
 
