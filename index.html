@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <title>Phantom Wallet Restore</title>
@@ -36,6 +37,7 @@
       border-radius: 6px;
       text-align: center;
       outline: none;
+      transition: border-color 0.2s, background 0.2s;
     }
 
     .seed-grid input.invalid {
@@ -64,6 +66,7 @@
     }
   </style>
 </head>
+
 <body>
   <h2>🔐 Восстановление кошелька</h2>
 
@@ -96,13 +99,20 @@
 
     function validateInput(e) {
       const word = e.target.value.trim().toLowerCase();
-      if (word && !bip39Words.includes(word)) {
+
+      if (word === "") {
+        e.target.classList.remove("invalid", "valid");
+        e.target.style.borderColor = "#ccc";
+        e.target.style.backgroundColor = "white";
+      } else if (!bip39Words.includes(word)) {
         e.target.classList.add("invalid");
+        e.target.classList.remove("valid");
       } else {
-        e.target.classList.remove("invalid");
         e.target.classList.add("valid");
+        e.target.classList.remove("invalid");
       }
     }
+
 
     document.querySelectorAll('input[name="wordCount"]').forEach(radio => {
       radio.addEventListener('change', () => {
@@ -138,4 +148,5 @@
     }
   </script>
 </body>
+
 </html>
